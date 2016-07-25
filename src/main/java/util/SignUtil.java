@@ -5,7 +5,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
 public class SignUtil {
-	private static String token = "weixinCourse";
+	private static String token = "weixinlearning";
 	
 	public static boolean checkSignature(String signature, String timestamp, String nonce) {
 		String[] paramArr = new String[] {token, timestamp, nonce};
@@ -25,7 +25,7 @@ public class SignUtil {
 		return ciphertext != null ? ciphertext.equals(signature.toUpperCase()) : false;
 	}
 
-	private static String byteToStr(byte[] byteArray) {
+	public static String byteToStr(byte[] byteArray) {
 		String strDigest = "";
 		for (int i = 0; i < byteArray.length; i++) {
 			strDigest += byteToHexStr(byteArray[i]);
