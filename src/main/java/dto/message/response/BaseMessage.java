@@ -1,9 +1,15 @@
 package dto.message.response;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
 public class BaseMessage {
+	@XStreamAlias("ToUserName")
 	private String toUserName;
+	@XStreamAlias("FromUserName")
 	private String fromUserName;
+	@XStreamAlias("CreateTime")
 	private Long createTime;
+	@XStreamAlias("MsgType")
 	private String msgType;
 	
 	public String getToUserName() {

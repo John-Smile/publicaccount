@@ -1,6 +1,10 @@
 package util;
 
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.io.Writer;
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +17,7 @@ import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
 import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.annotations.Annotations;
 import com.thoughtworks.xstream.core.util.QuickWriter;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
@@ -50,7 +55,14 @@ public class MessageUtil {
 	public static Map<String, String> parseXML(HttpServletRequest request) throws Exception {
 		SAXReader reader = new SAXReader();
 		InputStream inputStream = request.getInputStream();
-		Document document = reader.read(inputStream);
+		BufferedReader r = new BufferedReader(new InputStreamReader(inputStream));
+		String s = null;
+		StringBuilder sb = new StringBuilder();
+		while ((s = r.readLine()) != null) {
+			sb.append(s);
+		}
+		System.out.println(sb.toString());
+		Document document = reader.read(new ByteArrayInputStream(sb.toString().getBytes()));
 		
 		Element root = document.getRootElement();
 		@SuppressWarnings("unchecked")
@@ -87,6 +99,7 @@ public class MessageUtil {
 	});
 	
 	public static String messageToXML(TextMessage textMessage) {
+		xstream.processAnnotations(textMessage.getClass());
 		xstream.alias("xml", textMessage.getClass());
 		return xstream.toXML(textMessage);
 	}

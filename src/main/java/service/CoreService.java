@@ -59,7 +59,7 @@ public class CoreService {
 		    textMessage.setContent(respContent);
 		    respXML = MessageUtil.messageToXML(textMessage);
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.printStackTrace(System.err);
 		}
 		return respXML;
 	}
