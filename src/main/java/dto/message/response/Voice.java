@@ -1,6 +1,9 @@
 package dto.message.response;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
 public class Voice {
+	@XStreamAlias("MediaId")
     private String mediaId;
 
 	public String getMediaId() {

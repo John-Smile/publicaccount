@@ -2,8 +2,12 @@ package dto.message.response;
 
 import java.util.List;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
 public class NewsMessage extends BaseMessage {
+	@XStreamAlias("ArticleCount")
 	private int articleCount;
+	@XStreamAlias("Articles")
 	private List<Article> articles;
 	
 	public int getArticleCount() {

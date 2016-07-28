@@ -1,10 +1,17 @@
 package dto.message.response;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
 public class Music {
+	@XStreamAlias("title")
 	private String title;
+	@XStreamAlias("Description")
 	private String description;
+	@XStreamAlias("MucisUrl")
 	private String mucisUrl;
+	@XStreamAlias("HqMusicUrl")
 	private String hqMusicUrl;
+	@XStreamAlias("ThumbMediaId")
 	private String thumbMediaId;
 	
 	public String getTitle() {

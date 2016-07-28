@@ -1,8 +1,13 @@
 package dto.message.response;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
 public class Vedio {
+	@XStreamAlias("MediaId")
     private String mediaId;
+	@XStreamAlias("ThumbMediaId")
     private String thumbMediaId;
+	
 	public String getMediaId() {
 		return mediaId;
 	}

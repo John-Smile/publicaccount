@@ -1,6 +1,9 @@
 package dto.message.response;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
 public class ImageMessage extends BaseMessage {
+	@XStreamAlias("Image")
 	private Image image;
 
 	public Image getImage() {

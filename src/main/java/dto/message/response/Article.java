@@ -1,9 +1,15 @@
 package dto.message.response;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
 public class Article {
+	@XStreamAlias("Title")
     private String title;
+	@XStreamAlias("Description")
     private String description;
+	@XStreamAlias("PicUrl")
     private String picUrl;
+	@XStreamAlias("Url")
     private String url;
 	public String getPicUrl() {
 		return picUrl;
