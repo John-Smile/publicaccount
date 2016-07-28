@@ -16,7 +16,7 @@ public class CoreService {
 		
 		try {
 		    Map<String, String> requestMap = MessageUtil.parseXML(request);	
-		    String fromUserName = requestMap.get("FromUser");
+		    String fromUserName = requestMap.get("FromUserName");
 		    String toUserName = requestMap.get("ToUserName");
 		    String msgType = requestMap.get("MsgType");
 		    
