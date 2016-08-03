@@ -23,7 +23,10 @@ import dto.connection.Token;
 
 public class CommonUtil {
 	private static Logger log = LoggerFactory.getLogger(CommonUtil.class);
-	public final static String TOKEN_URL = "https://api.weixin.qq.com/cgi-bin/token?"
+	public final static String CGI_URL = "https://api.weixin.qq.com/cgi-bin";
+	public final static String PARAM_TOKEN = "access_token=ACCESS_TOKEN";
+	public final static String QUESTION_MARK = "?";
+	public final static String TOKEN_URL = CGI_URL + "/token?"
 			+ "grant_type=client_credential&appid=APPID&secrect=APPSECRET";
 	
 	public static JSONObject httpsRequest(String requestUrl, String requestMethod, String outputStr) {
