@@ -20,18 +20,21 @@ import javax.mail.internet.MimeMultipart;
 public class Email {
 	
 	public static void main(String[] args) throws Exception {
-		Session session = configSession("from", "pass");
-		Multipart content = configMesssageBody("body", "fileName", "filePath");
-		MimeMessage message = configMessage(session, new String[]{"to"}, "subject", content);
-		sendFrom126(message);
+		Session session = configSession("", "");
+		Multipart content = configMesssageBody("Kindle pdf", "The C Programming Language", "E:\\document\\book\\C\\The C Programming Language.pdf");
+		MimeMessage message = configMessage(session, new String[]{""}, "kindle push", content);
+		sendFrom126(session, message);
 	}
 	
-	public static void sendFrom126(MimeMessage message) throws MessagingException {
-//            Transport transport = session.getTransport("smtp");
+	public static void sendFrom126(Session session, MimeMessage message) throws MessagingException {
+            Transport transport = session.getTransport("smtp");
 //            transport.connect(host, from, pass);
-//            transport.sendMessage(message, message.getAllRecipients());
-//            transport.close();
-		Transport.send(message);
+            transport.connect(session.getProperty("mail.smtp.host"),
+            		          session.getProperty("mail.smtp.user"),
+            		          session.getProperty("mail.smtp.password"));
+            transport.sendMessage(message, message.getAllRecipients());
+            transport.close();
+//		Transport.send(message);
 	}
 
 	public static MimeMessage configMessage(Session session, String[] to,
