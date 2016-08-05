@@ -25,9 +25,13 @@ public class CommonUtil {
 	private static Logger log = LoggerFactory.getLogger(CommonUtil.class);
 	public final static String CGI_URL = "https://api.weixin.qq.com/cgi-bin";
 	public final static String PARAM_TOKEN = "access_token=ACCESS_TOKEN";
+	public final static String ACCESS_TOKEN = "ACCESS_TOKEN";
+	public final static String METHOD_GET = "GET";
+	public final static String RESP_CODE = "errcode";
+	public final static String RESP_MSG = "errmsg";
 	public final static String QUESTION_MARK = "?";
 	public final static String TOKEN_URL = CGI_URL + "/token?"
-			+ "grant_type=client_credential&appid=APPID&secrect=APPSECRET";
+			+ "grant_type=client_credential&appid=APPID&secret=APPSECRET";
 	
 	public static JSONObject httpsRequest(String requestUrl, String requestMethod, String outputStr) {
 		JSONObject jsonObject = null;
@@ -70,9 +74,9 @@ public class CommonUtil {
 		return jsonObject;
 	}
 	
-	public static Token getToken(String appid, String appsecret) {
+	public static Token getToken(String appId, String appSecret) {
 		Token token = null;
-		String requestUrl = TOKEN_URL.replace("APPID", appid).replace("APPSECRET", appsecret);
+		String requestUrl = TOKEN_URL.replace("APPID", appId).replace("APPSECRET", appSecret);
 		JSONObject jsonObject = httpsRequest(requestUrl, "GET", null);
 		
 		if (null != jsonObject) {

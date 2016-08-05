@@ -4,6 +4,12 @@ public class ViewButton extends Button {
 	private String type;
 	private String url;
 	
+	public ViewButton(String name, String type, String url) {
+		super(name);
+		this.type = type;
+		this.url = url;
+	}
+	
 	public String getType() {
 		return type;
 	}

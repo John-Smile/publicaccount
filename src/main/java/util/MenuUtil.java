@@ -25,7 +25,44 @@ public class MenuUtil {
 		
 		if (null != jsonObject) {
 			int errorCode = jsonObject.getIntValue("errcode");
+			String errorMsg = jsonObject.getString("errmsg");
+			if (errorCode == 0) {
+				result = true;
+			} else {
+				result = false;
+				log.error("创建菜单失败 errorCode:{} errMsg:{}", errorCode, errorMsg);
+			}
 		}
+		return result;
+	}
+	
+	public static String getMenu(String accessToken) {
+		String result = null;
+		String requestUrl = MENU_GET_URL.replace(CommonUtil.ACCESS_TOKEN, accessToken);
+		JSONObject jsonObject = CommonUtil.httpsRequest(requestUrl, CommonUtil.METHOD_GET, null);
+		
+		if (null != jsonObject) {
+			result = jsonObject.toString();
+		}
+		return result;
+	}
+	
+	public static boolean deleteMenu(String accessToken) {
+		boolean result = false;
+		String requestUrl = MENU_DELETE_URL.replace(CommonUtil.ACCESS_TOKEN, accessToken);
+		JSONObject jsonObject = CommonUtil.httpsRequest(requestUrl, CommonUtil.METHOD_GET, null);
+		
+		if (null != jsonObject) {
+			int errorCode = jsonObject.getIntValue(CommonUtil.RESP_CODE);
+			String errorMsg = jsonObject.getString(CommonUtil.RESP_MSG);
+			if (0 == errorCode) {
+				result = true;
+			} else {
+				result = false;
+				log.error("删除菜单失败 errcode:{} errmsg:{}", errorCode, errorMsg);
+			}
+		}
+		return result;
 	}
 
 }

@@ -4,6 +4,11 @@ public class ClickButton extends Button {
 	private String type;
 	private String key;
 	
+	public ClickButton(String name, String type, String key) {
+		super(name);
+		this.type = type;
+		this.key = key;
+	}
 	public String getType() {
 		return type;
 	}

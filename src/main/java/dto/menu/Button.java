@@ -3,6 +3,11 @@ package dto.menu;
 public class Button {
 	private String name;
 
+	public Button(String name) {
+		super();
+		this.name = name;
+	}
+
 	public String getName() {
 		return name;
 	}
