@@ -44,11 +44,17 @@
 		<artifactId>spring-jdbc</artifactId>
 		<version>${spring.version}</version>
 	</dependency>
+	<!-- https://mvnrepository.com/artifact/org.springframework/spring-test -->
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-test</artifactId>
+	    <version>${spring.version}</version>
+	</dependency>
 	<!-- spring end -->
 	<dependency>
 		<groupId>junit</groupId>
 		<artifactId>junit</artifactId>
-		<version>3.8.1</version>
+		<version>4.11</version>
 		<scope>test</scope>
 	</dependency>
 	<dependency>
@@ -141,6 +147,7 @@
   </dependencies>
   
   <build>
+    <finalName>Root</finalName>
     <plugins>
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
@@ -161,6 +168,38 @@
             </configuration>
         </plugin>
     </plugins>
-    <finalName>Root</finalName>
+    
+    <resources>
+		<resource>
+			<directory>src/main/resources</directory>
+			<excludes>
+				<exclude>environment/production/*</exclude>
+				<exclude>environment/develop/*</exclude>
+			</excludes>
+		</resource>
+		<resource>
+			<directory>src/main/resources/environment/${profiles.active}</directory>
+		</resource>
+	</resources>
   </build>
+  
+  <profiles>
+	<profile>
+		<!-- 开发环境 -->
+		<id>develop</id>
+		<properties>
+			<profiles.active>develop</profiles.active>
+		</properties>
+		<activation>
+			<activeByDefault>true</activeByDefault>
+		</activation>
+	</profile>
+	<profile>
+		<!-- 生产环境 -->
+		<id>production</id>
+		<properties>
+			<profiles.active>production</profiles.active>
+		</properties>
+	</profile>
+  </profiles>
 </project>

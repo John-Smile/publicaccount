@@ -33,7 +33,7 @@
 		<property name="locations">
 			<list>
 				<value>classpath:application.properties</value>
-				<value>classpath:jdbc.properties</value>
+				<!-- <value>classpath:jdbc.properties</value> -->
 			</list>
 		</property>
 		<property name="fileEncoding" value="UTF-8" />

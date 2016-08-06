@@ -18,13 +18,16 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.mail.util.ByteArrayDataSource;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.publicaccount.service.email.EmailService;
 
 @Service
 public class EmailServiceImpl implements EmailService {
+	@Value("${email.account}")
 	private String from;
+	@Value("${email.pass}")
 	private String pass;
 	private Session session = configSession(from, pass);
 	private Transport transport;
@@ -41,7 +44,6 @@ public class EmailServiceImpl implements EmailService {
 				          session.getProperty("mail.smtp.user"),
 				          session.getProperty("mail.smtp.password"));
 		transport.sendMessage(message, message.getAllRecipients());
-		transport.close();
 	}
 	
 	private MimeMessage configMessage(String[] to, String subject, Multipart content) throws AddressException, MessagingException {
