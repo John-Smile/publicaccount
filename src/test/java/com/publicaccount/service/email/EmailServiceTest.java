@@ -13,18 +13,21 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 
-@ContextConfiguration(locations = {"classpath:config/loan-context.xml"})
+@ContextConfiguration(locations = {"classpath:config/publicaccount-context.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class EmailServiceTest {
 	@Value("${emailAddr}")
-    private String emailAddr;	
+    private String emailAddr;
+	@Value("${fileName}")
+	private String fileName;
+	@Value("${filePath}")
+	private String filePath;
 	@Resource
 	private EmailService emailService;
 	
 	@Test
 	public void testSendFile() throws Exception {
-		String fileName = "The C Programming Language.pdf";
-		File file = new File("E:\\document\\book\\C\\The C Programming Language.pdf");
+		File file = new File(filePath);
 		InputStream is = new FileInputStream(file);
 		byte[] bFile = new byte[(int)file.length()];
 		is.read(bFile);
