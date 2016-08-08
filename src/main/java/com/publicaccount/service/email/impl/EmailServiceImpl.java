@@ -138,7 +138,7 @@ public class EmailServiceImpl implements EmailService {
 	private Session configSession(String from, String pass) {
 		Properties props = System.getProperties();
 		props.put("mail.smtp.starttls.enable", "true");
-		String host = "smtp.126.com";
+		String host = "smtp.163.com";
         props.put("mail.smtp.host", host);
         props.put("mail.smtp.user", from);
         props.put("mail.smtp.password", pass);
