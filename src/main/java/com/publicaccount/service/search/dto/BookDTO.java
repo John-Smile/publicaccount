@@ -1,15 +1,17 @@
 package com.publicaccount.service.search.dto;
 
+import java.io.File;
+
 public class BookDTO {
 	private String bookName;
 	private String contentFormt;
-    private byte[] content;
+    private String filePath;
     
-	public BookDTO(String bookName, int contentFormt, byte[] content) {
+	public BookDTO(String bookName, int contentFormt, String directory) {
 		super();
 		this.bookName = bookName;
 		this.contentFormt = ContentFormat.valueOf(contentFormt);
-		this.content = content;
+		this.filePath = directory + File.separator + bookName;
 	}
 	
 	enum ContentFormat {
@@ -47,16 +49,16 @@ public class BookDTO {
 	public void setBookName(String bookName) {
 		this.bookName = bookName;
 	}
-	public byte[] getContent() {
-		return content;
-	}
-	public void setContent(byte[] content) {
-		this.content = content;
-	}
 	public String getContentFormt() {
 		return contentFormt;
 	}
 	public void setContentFormt(String contentFormt) {
 		this.contentFormt = contentFormt;
+	}
+	public String getFilePath() {
+		return filePath;
+	}
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
 	}
 }

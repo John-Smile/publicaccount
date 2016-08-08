@@ -35,7 +35,7 @@ public class EmailServiceTest {
 		is.read(bFile);
 		is.close();
 		
-		emailService.sendFile(new String[]{emailAddr}, new BookDTO(fileName, 1, bFile));
+		emailService.sendFile(new String[]{emailAddr}, new BookDTO(fileName, 1, filePath));
 	}
 
 }

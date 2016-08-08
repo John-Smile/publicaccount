@@ -7,9 +7,9 @@
     <result column="author" property="author" jdbcType="VARCHAR" />
     <result column="publish_date" property="publishDate" jdbcType="DATE" />
     <result column="content_type" property="contentType" jdbcType="INTEGER" />
-    <result column="content_id" property="contentId" jdbcType="BIGINT" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="file_path" property="filePath" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -41,7 +41,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, title, author, publish_date, content_type, content_id, create_time, update_time
+    id, title, author, publish_date, content_type, create_time, update_time, file_path
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.publicaccount.dao.entity.BookExample" >
     select
@@ -75,11 +75,11 @@
   </delete>
   <insert id="insert" parameterType="com.publicaccount.dao.entity.Book" useGeneratedKeys="true" keyProperty="id" >
     insert into t_book (title, author, publish_date, 
-      content_type, content_id, create_time, 
-      update_time)
+      content_type, create_time, update_time, 
+      file_path)
     values (#{title,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, #{publishDate,jdbcType=DATE}, 
-      #{contentType,jdbcType=INTEGER}, #{contentId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP})
+      #{contentType,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{filePath,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.publicaccount.dao.entity.Book" useGeneratedKeys="true" keyProperty="id" >
     insert into t_book
@@ -96,14 +96,14 @@
       <if test="contentType != null" >
         content_type,
       </if>
-      <if test="contentId != null" >
-        content_id,
-      </if>
       <if test="createTime != null" >
         create_time,
       </if>
       <if test="updateTime != null" >
         update_time,
+      </if>
+      <if test="filePath != null" >
+        file_path,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -119,14 +119,14 @@
       <if test="contentType != null" >
         #{contentType,jdbcType=INTEGER},
       </if>
-      <if test="contentId != null" >
-        #{contentId,jdbcType=BIGINT},
-      </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="updateTime != null" >
         #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="filePath != null" >
+        #{filePath,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -151,14 +151,14 @@
       <if test="contentType != null" >
         content_type = #{contentType,jdbcType=INTEGER},
       </if>
-      <if test="contentId != null" >
-        content_id = #{contentId,jdbcType=BIGINT},
-      </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="updateTime != null" >
         update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="filePath != null" >
+        file_path = #{filePath,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
@@ -169,9 +169,9 @@
       author = #{author,jdbcType=VARCHAR},
       publish_date = #{publishDate,jdbcType=DATE},
       content_type = #{contentType,jdbcType=INTEGER},
-      content_id = #{contentId,jdbcType=BIGINT},
       create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      file_path = #{filePath,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

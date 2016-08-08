@@ -1,13 +1,14 @@
 package com.publicaccount.service.search.impl;
 
+import java.io.File;
 import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.publicaccount.dao.entity.Book;
-import com.publicaccount.dao.entity.BookContent;
 import com.publicaccount.dao.entity.BookExample;
 import com.publicaccount.dao.mapper.BookContentMapper;
 import com.publicaccount.dao.mapper.BookMapper;
@@ -20,6 +21,9 @@ public class SearchServiceImpl implements SearchService {
 	private BookMapper bookMapper;
 	@Resource
 	private BookContentMapper bookContentMapper;
+	@Value("${book.directory}")
+	private String bookDirectory;
+	private String tomcatPath = System.getProperty("catalina.base");;
 	
 
 	@Override
@@ -32,20 +36,14 @@ public class SearchServiceImpl implements SearchService {
 	@Override
 	public BookDTO getFile(String fileName) {
 		Book book = getBooksByName(fileName).get(0);
-		BookContent bookContent = getBookContent(book.getContentId());
-		if (bookContent == null) {
+		if (book == null) {
 			String msg = String.format("获取《%s》失败", fileName);
 			throw new RuntimeException(msg);
 		} else {
-			return new BookDTO(book.getTitle(), book.getContentType(), bookContent.getContent());
+			return new BookDTO(book.getTitle(), book.getContentType(), tomcatPath + File.separator + bookDirectory);
 		}
 	}
 	
-	private BookContent getBookContent(Long contentId) {
-		BookContent bookContent = bookContentMapper.selectByPrimaryKey(contentId);
-		return bookContent;
-	}
-
 	private List<Book> getBooksByName(String fileName) {
 		BookExample example = new BookExample();
 		BookExample.Criteria criteria = example.createCriteria();

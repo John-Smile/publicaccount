@@ -86,14 +86,13 @@ public class EmailServiceImpl implements EmailService {
 		return message;
 	}
 
-	@SuppressWarnings("unused")
-	private Multipart configMesssageBody(String body, String fileName, String filePath) throws MessagingException {
+	private Multipart configMesssageBody(String fileName, String filePath) throws MessagingException {
 		
 		Multipart multipart = new MimeMultipart();
 		// 文本内容
 		BodyPart messageBodyPart = new MimeBodyPart();
-		messageBodyPart.setText(body);
-		multipart.addBodyPart(messageBodyPart);
+//		messageBodyPart.setText(body);
+//		multipart.addBodyPart(messageBodyPart);
 		// 附件
 		messageBodyPart = new MimeBodyPart();
 		DataSource source = new FileDataSource(filePath);
@@ -122,7 +121,8 @@ public class EmailServiceImpl implements EmailService {
 		return multipart;
 	}
     
-    private Multipart configMesssageBody(String fileName, String contentType, byte[] file) throws MessagingException {
+    @SuppressWarnings("unused")
+	private Multipart configMesssageBody(String fileName, String contentType, byte[] file) throws MessagingException {
 		
 		Multipart multipart = new MimeMultipart();
 		// 附件
@@ -152,7 +152,7 @@ public class EmailServiceImpl implements EmailService {
 	@Override
 	public void sendFile(String[] emailAddr, BookDTO book) {
 		try {
-			Multipart content = configMesssageBody(book.getBookName(), book.getContentFormt(), book.getContent());
+			Multipart content = configMesssageBody(book.getBookName(), book.getFilePath());
 			MimeMessage message = configMessage(emailAddr, book.getBookName(), content);
 			sendFrom163(message);
 		} catch (MessagingException e) {
