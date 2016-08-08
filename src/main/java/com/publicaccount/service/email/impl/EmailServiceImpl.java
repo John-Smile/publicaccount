@@ -49,11 +49,22 @@ public class EmailServiceImpl implements EmailService {
 //		sendFrom126(session, message);
 //	}
 	
-	public void sendFrom163(MimeMessage message) throws MessagingException {
-		transport.connect(session.getProperty("mail.smtp.host"),
-				          session.getProperty("mail.smtp.user"),
-				          session.getProperty("mail.smtp.password"));
-		transport.sendMessage(message, message.getAllRecipients());
+	public void sendFrom163(MimeMessage message) {
+		try {
+			transport.connect(session.getProperty("mail.smtp.host"),
+					          session.getProperty("mail.smtp.user"),
+					          session.getProperty("mail.smtp.password"));
+			transport.sendMessage(message, message.getAllRecipients());
+		} catch (MessagingException e) {
+			throw new RuntimeException(e);
+		} finally {
+			try {
+				transport.close();
+			} catch (MessagingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	private MimeMessage configMessage(String[] to, String subject, Multipart content) throws AddressException, MessagingException {
@@ -138,10 +149,10 @@ public class EmailServiceImpl implements EmailService {
 	}
 
 	@Override
-	public void sendFile(String emailAddr, String fileName, byte[] file) {
+	public void sendFile(String[] emailAddr, String fileName, byte[] file) {
 		try {
 			Multipart content = configMesssageBody(fileName, file, "application/pdf");
-			MimeMessage message = configMessage(new String[]{emailAddr}, fileName, content);
+			MimeMessage message = configMessage(emailAddr, fileName, content);
 			sendFrom163(message);
 		} catch (MessagingException e) {
 			throw new RuntimeException(e);

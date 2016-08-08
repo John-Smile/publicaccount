@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.publicaccount.dao.mapper.PushExceptionMapper" >
+  <resultMap id="BaseResultMap" type="com.publicaccount.dao.entity.PushException" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="message" property="message" jdbcType="VARCHAR" />
+    <result column="exception" property="exception" jdbcType="VARCHAR" />
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, message, exception, created_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.publicaccount.dao.entity.PushExceptionExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_push_exception
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_push_exception
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_push_exception
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.publicaccount.dao.entity.PushExceptionExample" >
+    delete from t_push_exception
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.publicaccount.dao.entity.PushException" useGeneratedKeys="true" keyProperty="id" >
+    insert into t_push_exception (message, exception, created_time
+      )
+    values (#{message,jdbcType=VARCHAR}, #{exception,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.publicaccount.dao.entity.PushException" useGeneratedKeys="true" keyProperty="id" >
+    insert into t_push_exception
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="message != null" >
+        message,
+      </if>
+      <if test="exception != null" >
+        exception,
+      </if>
+      <if test="createdTime != null" >
+        created_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="message != null" >
+        #{message,jdbcType=VARCHAR},
+      </if>
+      <if test="exception != null" >
+        #{exception,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.publicaccount.dao.entity.PushExceptionExample" resultType="java.lang.Integer" >
+    select count(*) from t_push_exception
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="com.publicaccount.dao.entity.PushException" >
+    update t_push_exception
+    <set >
+      <if test="message != null" >
+        message = #{message,jdbcType=VARCHAR},
+      </if>
+      <if test="exception != null" >
+        exception = #{exception,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null" >
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.publicaccount.dao.entity.PushException" >
+    update t_push_exception
+    set message = #{message,jdbcType=VARCHAR},
+      exception = #{exception,jdbcType=VARCHAR},
+      created_time = #{createdTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
