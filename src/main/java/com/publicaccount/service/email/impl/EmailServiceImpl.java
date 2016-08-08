@@ -9,6 +9,7 @@ import javax.mail.BodyPart;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
+import javax.mail.NoSuchProviderException;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.AddressException;
@@ -18,6 +19,7 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.mail.util.ByteArrayDataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -25,12 +27,20 @@ import com.publicaccount.service.email.EmailService;
 
 @Service
 public class EmailServiceImpl implements EmailService {
-	@Value("${email.account}")
+	@Value("${email.account:}")
 	private String from;
-	@Value("${email.pass}")
+	@Value("${email.pass:}")
 	private String pass;
-	private Session session = configSession(from, pass);
+	private Session session;
 	private Transport transport;
+	
+	@Autowired
+	public EmailServiceImpl(@Value("${email.account:}") String from, @Value("${email.pass:}") String pass) throws NoSuchProviderException {
+		this.from = from;
+		this.pass = pass;
+		session = configSession(from, pass);
+		transport = session.getTransport("smtp");
+	}
 	
 //	public static void main(String[] args) throws Exception {
 //		Session session = configSession("", "");

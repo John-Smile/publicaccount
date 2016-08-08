@@ -26,17 +26,5 @@
 	</mvc:annotation-driven>
 	<!-- 容器默认的DefaultServletHandler处理 所有静态内容与无RequestMapping处理的URL -->
 	<mvc:default-servlet-handler />
-
-	<aop:aspectj-autoproxy proxy-target-class="true" />  
 	
-	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="locations">
-			<list>
-				<value>classpath:application.properties</value>
-				<value>classpath:jdbc.properties</value>
-			</list>
-		</property>
-		<property name="fileEncoding" value="UTF-8" />
-		<property name="ignoreUnresolvablePlaceholders" value="true" />
-	</bean>
 </beans>
