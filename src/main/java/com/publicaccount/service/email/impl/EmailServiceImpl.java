@@ -126,7 +126,7 @@ public class EmailServiceImpl implements EmailService {
 	private Session configSession(String from, String pass) {
 		Properties props = System.getProperties();
 		props.put("mail.smtp.starttls.enable", "true");
-		String host = "smtp.163.com";
+		String host = "smtp.126.com";
         props.put("mail.smtp.host", host);
         props.put("mail.smtp.user", from);
         props.put("mail.smtp.password", pass);
@@ -140,7 +140,7 @@ public class EmailServiceImpl implements EmailService {
 	@Override
 	public void sendFile(String emailAddr, String fileName, byte[] file) {
 		try {
-			Multipart content = configMesssageBody(fileName, file, null);
+			Multipart content = configMesssageBody(fileName, file, "application/pdf");
 			MimeMessage message = configMessage(new String[]{emailAddr}, fileName, content);
 			sendFrom163(message);
 		} catch (MessagingException e) {
