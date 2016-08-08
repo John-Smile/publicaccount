@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.publicaccount.service.search.dto.BookDTO;
+
 
 @ContextConfiguration(locations = {"classpath:config/publicaccount-context1.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -33,7 +35,7 @@ public class EmailServiceTest {
 		is.read(bFile);
 		is.close();
 		
-		emailService.sendFile(emailAddr, fileName, bFile);
+		emailService.sendFile(new String[]{emailAddr}, new BookDTO(fileName, 1, bFile));
 	}
 
 }

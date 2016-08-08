@@ -24,6 +24,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.publicaccount.service.email.EmailService;
+import com.publicaccount.service.search.dto.BookDTO;
 
 @Service
 public class EmailServiceImpl implements EmailService {
@@ -104,7 +105,7 @@ public class EmailServiceImpl implements EmailService {
 	}
 	
     @SuppressWarnings("unused")
-	private Multipart configMesssageBody(String body, String fileName, byte[] file, String contentType) throws MessagingException {
+	private Multipart configMesssageBody(String body, String fileName, String contentType, byte[] file) throws MessagingException {
 		
 		Multipart multipart = new MimeMultipart();
 		// 文本内容
@@ -121,7 +122,7 @@ public class EmailServiceImpl implements EmailService {
 		return multipart;
 	}
     
-    private Multipart configMesssageBody(String fileName, byte[] file, String contentType) throws MessagingException {
+    private Multipart configMesssageBody(String fileName, String contentType, byte[] file) throws MessagingException {
 		
 		Multipart multipart = new MimeMultipart();
 		// 附件
@@ -149,10 +150,10 @@ public class EmailServiceImpl implements EmailService {
 	}
 
 	@Override
-	public void sendFile(String[] emailAddr, String fileName, byte[] file) {
+	public void sendFile(String[] emailAddr, BookDTO book) {
 		try {
-			Multipart content = configMesssageBody(fileName, file, "application/pdf");
-			MimeMessage message = configMessage(emailAddr, fileName, content);
+			Multipart content = configMesssageBody(book.getBookName(), book.getContentFormt(), book.getContent());
+			MimeMessage message = configMessage(emailAddr, book.getBookName(), content);
 			sendFrom163(message);
 		} catch (MessagingException e) {
 			throw new RuntimeException(e);

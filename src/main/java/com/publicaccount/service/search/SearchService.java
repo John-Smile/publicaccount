@@ -1,5 +1,7 @@
 package com.publicaccount.service.search;
 
+import com.publicaccount.service.search.dto.BookDTO;
+
 /***
  * 检索文档
  *
@@ -18,6 +20,6 @@ public interface SearchService {
 	 * @param fileName
 	 * @return
 	 */
-	byte[] getFile(String fileName);
+	BookDTO getFile(String fileName);
 
 }

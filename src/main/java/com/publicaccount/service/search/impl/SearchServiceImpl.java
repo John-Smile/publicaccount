@@ -12,6 +12,7 @@ import com.publicaccount.dao.entity.BookExample;
 import com.publicaccount.dao.mapper.BookContentMapper;
 import com.publicaccount.dao.mapper.BookMapper;
 import com.publicaccount.service.search.SearchService;
+import com.publicaccount.service.search.dto.BookDTO;
 
 @Service
 public class SearchServiceImpl implements SearchService {
@@ -29,14 +30,14 @@ public class SearchServiceImpl implements SearchService {
 	}
 
 	@Override
-	public byte[] getFile(String fileName) {
+	public BookDTO getFile(String fileName) {
 		Book book = getBooksByName(fileName).get(0);
 		BookContent bookContent = getBookContent(book.getContentId());
 		if (bookContent == null) {
 			String msg = String.format("获取《%s》失败", fileName);
 			throw new RuntimeException(msg);
 		} else {
-			return bookContent.getContent();
+			return new BookDTO(book.getTitle(), book.getContentType(), bookContent.getContent());
 		}
 	}
 	
